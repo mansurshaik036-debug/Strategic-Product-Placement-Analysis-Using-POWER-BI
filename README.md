@@ -7,6 +7,8 @@
 ---
 
 ## Dashboard Preview
+<img width="3503" height="2179" alt="dashboard-preview-hd" src="https://github.com/user-attachments/assets/82204472-2a99-4c48-87ec-ae4412c75e1b" />
+
 
 The dashboard features a **clean, minimal dark executive theme** with 5 interactive pages:
 
