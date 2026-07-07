@@ -120,9 +120,9 @@ Top Product = TOPN(1, ALL('Data'), [Total Sales], DESC)
 4. Configure slicers per `powerbi/slicer-config.md`
 5. Publish to Power BI Service for sharing
 
-## Author
+## AUTHOR
 
-**Senior Power BI Developer | Microsoft Certified Data Analyst | UX Dashboard Designer**
+**SHAIK.MANSUR**
 
 Built for portfolio demonstration and recruiter evaluation.
 
