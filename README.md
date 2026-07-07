@@ -122,7 +122,7 @@ product-placement-powerbi/
 
 ## Author
 
-**Senior Power BI Developer | Microsoft Certified Data Analyst | UX Dashboard Designer**
+**SHAIK.MANSUR**
 
 Built for portfolio demonstration and recruiter evaluation.
 
