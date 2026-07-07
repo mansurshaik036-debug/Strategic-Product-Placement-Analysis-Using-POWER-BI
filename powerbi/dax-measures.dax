@@ -1,0 +1,124 @@
+// ============================================
+// STRATEGIC PRODUCT PLACEMENT ANALYSIS
+// DAX Measures Library
+// ============================================
+
+// --- CORE KPIs ---
+
+Total Sales = 
+    SUM('Product Positioning'[Sales Amount])
+
+Estimated Profit = 
+    SUM('Product Positioning'[Estimated Profit])
+
+Profit Margin = 
+    DIVIDE([Estimated Profit], [Total Sales], 0)
+
+Avg Order Value = 
+    AVERAGE('Product Positioning'[Sales Amount])
+
+Avg Unit Price = 
+    AVERAGE('Product Positioning'[Price])
+
+Total Quantity Sold = 
+    SUM('Product Positioning'[Sales Volume])
+
+// --- PRICING ANALYSIS ---
+
+Price Spread = 
+    SUM('Product Positioning'[Price]) - SUM('Product Positioning'[Competitor Price])
+
+Avg Price Spread = 
+    AVERAGE('Product Positioning'[Price Spread vs Competitor])
+
+Price Position = 
+    IF([Price Spread] > 0, "Premium", "Discount")
+
+// --- RANKING MEASURES ---
+
+Top Product by Sales = 
+    TOPN(1, ALL('Product Positioning'), [Total Sales], DESC)
+
+Top Product by Profit = 
+    TOPN(1, ALL('Product Positioning'), [Estimated Profit], DESC)
+
+Product Rank by Sales = 
+    RANKX(ALL('Product Positioning'), [Total Sales], , DESC)
+
+Product Rank by Profit = 
+    RANKX(ALL('Product Positioning'), [Estimated Profit], , DESC)
+
+// --- CATEGORY ANALYSIS ---
+
+Category Sales = 
+    CALCULATE([Total Sales], ALLEXCEPT('Product Positioning', 'Product Positioning'[Product Category]))
+
+Category Share = 
+    DIVIDE([Total Sales], CALCULATE([Total Sales], ALL('Product Positioning'[Product Category])))
+
+// --- PLACEMENT ANALYSIS ---
+
+Placement Sales = 
+    CALCULATE([Total Sales], ALLEXCEPT('Product Positioning', 'Product Positioning'[Product Position]))
+
+Placement Efficiency = 
+    DIVIDE([Placement Sales], DISTINCTCOUNT('Product Positioning'[Product ID]))
+
+// --- PROMOTION ANALYSIS ---
+
+Promoted Sales = 
+    CALCULATE([Total Sales], 'Product Positioning'[Promotion] = "Yes")
+
+NonPromoted Sales = 
+    CALCULATE([Total Sales], 'Product Positioning'[Promotion] = "No")
+
+Promotion Lift = 
+    [Promoted Sales] - [NonPromoted Sales]
+
+// --- TRAFFIC ANALYSIS ---
+
+High Traffic Sales = 
+    CALCULATE([Total Sales], 'Product Positioning'[Foot Traffic] = "High")
+
+Medium Traffic Sales = 
+    CALCULATE([Total Sales], 'Product Positioning'[Foot Traffic] = "Medium")
+
+Low Traffic Sales = 
+    CALCULATE([Total Sales], 'Product Positioning'[Foot Traffic] = "Low")
+
+// --- DEMOGRAPHIC ANALYSIS ---
+
+Demographic Sales = 
+    CALCULATE([Total Sales], ALLEXCEPT('Product Positioning', 'Product Positioning'[Consumer Demographics]))
+
+// --- SEASONAL ANALYSIS ---
+
+Seasonal Sales = 
+    CALCULATE([Total Sales], 'Product Positioning'[Seasonal] = "Yes")
+
+NonSeasonal Sales = 
+    CALCULATE([Total Sales], 'Product Positioning'[Seasonal] = "No")
+
+Seasonal Lift = 
+    [Seasonal Sales] - [NonSeasonal Sales]
+
+// --- OUTLIER FLAG ---
+
+Outlier Count = 
+    COUNTROWS(FILTER('Product Positioning', 'Product Positioning'[Outlier Flag] = "Yes"))
+
+// --- CONDITIONAL FORMATTING HELPERS ---
+
+Margin Color = 
+    SWITCH(TRUE(),
+        [Profit Margin] >= 0.10, "Green",
+        [Profit Margin] >= 0.05, "Amber",
+        "Red"
+    )
+
+Sales Performance = 
+    SWITCH(TRUE(),
+        [Total Sales] >= 200000, "High",
+        [Total Sales] >= 100000, "Medium",
+        "Low"
+    )
